@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Somalizon — Hal Meel Ka Iibso Ku Iibso</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS VARIABLES ===== */
+:root {
+  --orange:#FF6B00; --orange2:#FF8C33; --orange-pale:#FFF3E8;
+  --navy:#1A2B4A; --navy2:#243660;
+  --white:#FFFFFF; --gray:#F5F6FA; --gray2:#E8EAF0;
+  --text:#1A2B4A; --text2:#6B7A99;
+  --green:#00B274; --red:#E53935; --star:#FFB800;
+  --shadow:0 4px 24px rgba(26,43,74,.10);
+  --shadow-o:0 4px 20px rgba(255,107,0,.25);
+  --border:#E8EAF0;
+}
+body.dark {
+  --white:#1E1E2E; --gray:#161622; --gray2:#2A2A3E;
+  --text:#E8E8F0; --text2:#8888AA;
+  --border:#3A3A55; --shadow:0 4px 24px rgba(0,0,0,.4);
+}
+
+/* ===== RESET & BASE ===== */
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--gray);font-family:'Nunito',sans-serif;color:var(--text);overflow-x:hidden}
+body.dark{background:#161622}
+img{display:block;max-width:100%}
+button{cursor:pointer;font-family:'Nunito',sans-serif}
+
+/* ===== WRAPPER ===== */
+.wrap{max-width:420px;margin:0 auto;min-height:100vh;background:var(--white);position:relative;overflow:hidden}
+
+/* ===== SCREENS ===== */
+.screen{display:none;flex-direction:column;min-height:100vh}
+.screen.on{display:flex}
+
+/* ===== SPLASH ===== */
+#splash{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 50%,#1e3a6e 100%);align-items:center;justify-content:center;text-align:center}
+.splash-bag{font-size:90px;animation:pulse 1.5s ease infinite;display:block}
+.splash-title{font-family:'Poppins',sans-serif;font-size:2.6rem;font-weight:900;color:#fff;margin-top:10px;letter-spacing:-1px}
+.splash-title span{color:var(--orange2)}
+.splash-tag{color:rgba(255,255,255,.6);font-size:.8rem;letter-spacing:3px;text-transform:uppercase;margin-top:6px}
+.splash-bar{margin-top:50px;width:70px;height:4px;background:rgba(255,255,255,.15);border-radius:4px;overflow:hidden;margin-left:auto;margin-right:auto}
+.splash-fill{height:100%;background:var(--orange2);border-radius:4px;animation:loadbar 2.2s ease forwards}
+
+/* ===== ONBOARDING ===== */
+#onboard{background:var(--white)}
+.ob-wrap{flex:1;overflow:hidden;position:relative}
+.ob-slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 30px;opacity:0;transition:opacity .4s;text-align:center}
+.ob-slide.on{opacity:1}
+.ob-emo{font-size:90px;animation:obfloat 3s ease-in-out infinite}
+.ob-title{font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;color:var(--navy);margin-top:20px}
+.ob-desc{color:var(--text2);font-size:.95rem;margin-top:10px;line-height:1.6}
+.ob-dots{display:flex;gap:8px;justify-content:center;padding:18px}
+.ob-dot{width:8px;height:8px;border-radius:50%;background:var(--gray2);transition:all .3s}
+.ob-dot.on{background:var(--orange);width:24px;border-radius:4px}
+.ob-foot{padding:16px 28px 40px;display:flex;gap:12px}
+.btn-skip{flex:1;padding:14px;border:2px solid var(--gray2);border-radius:14px;background:transparent;color:var(--text2);font-weight:700;font-size:.95rem}
+.btn-next{flex:2;padding:14px;border:none;border-radius:14px;background:var(--orange);color:#fff;font-weight:800;font-size:.95rem;box-shadow:var(--shadow-o)}
+
+/* ===== AUTH ===== */
+#auth{background:var(--white)}
+.auth-top{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:60px 28px 36px;text-align:center;border-radius:0 0 36px 36px}
+.auth-logo{font-family:'Poppins',sans-serif;font-size:2.2rem;font-weight:900;color:#fff}
+.auth-logo span{color:var(--orange2)}
+.auth-sub{color:rgba(255,255,255,.55);font-size:.78rem;letter-spacing:2.5px;text-transform:uppercase;margin-top:5px}
+.auth-tabs{display:flex;margin:20px 20px 0;background:var(--gray);border-radius:12px;padding:4px}
+.atab{flex:1;padding:11px;border:none;background:transparent;font-weight:700;font-size:.93rem;color:var(--text2);border-radius:10px;transition:all .25s}
+.atab.on{background:var(--white);color:var(--orange);box-shadow:var(--shadow)}
+.auth-form{padding:18px 20px 30px;flex:1;overflow-y:auto}
+.flabel{font-size:.78rem;font-weight:700;color:var(--text2);margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:.5px}
+.finput{width:100%;padding:14px 16px;border:2px solid var(--gray2);border-radius:12px;font-family:'Nunito',sans-serif;font-size:.93rem;color:var(--text);outline:none;transition:border-color .2s;background:var(--gray);margin-bottom:12px}
+.finput:focus{border-color:var(--orange);background:var(--white)}
+body.dark .finput{background:var(--gray2);border-color:var(--border);color:var(--text)}
+.btn-main{width:100%;padding:15px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;font-family:'Poppins',sans-serif;font-weight:700;font-size:1rem;box-shadow:var(--shadow-o);letter-spacing:.3px}
+.divider{display:flex;align-items:center;gap:12px;margin:14px 0}
+.divider-line{flex:1;height:1px;background:var(--gray2)}
+.divider-txt{color:var(--text2);font-size:.8rem}
+.btn-social{width:100%;padding:13px;border:2px solid var(--gray2);border-radius:14px;background:var(--white);color:var(--text);font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center;gap:10px}
+body.dark .btn-social{background:var(--gray2);border-color:var(--border);color:var(--text)}
+.evc-note{background:var(--orange-pale);border-radius:12px;padding:12px 16px;margin-top:14px;font-size:.82rem;color:var(--orange);font-weight:700;text-align:center}
+body.dark .evc-note{background:rgba(255,107,0,.12)}
+
+/* ===== HOME ===== */
+#home{background:var(--gray)}
+body.dark #home{background:#161622}
+.home-top{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:48px 18px 22px;border-radius:0 0 26px 26px}
+.home-top-row{display:flex;align-items:center;justify-content:space-between}
+.home-greet{color:rgba(255,255,255,.65);font-size:.82rem}
+.home-name{color:#fff;font-size:1.1rem;font-weight:800;margin-top:2px}
+.hicons{display:flex;gap:10px}
+.hbtn{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:1.1rem;display:flex;align-items:center;justify-content:center;position:relative}
+.hbadge{position:absolute;top:-4px;right:-4px;background:var(--orange);color:#fff;width:17px;height:17px;border-radius:50%;font-size:.62rem;display:flex;align-items:center;justify-content:center;font-weight:800;border:2px solid var(--navy)}
+
+/* Search */
+.search-wrap{margin-top:14px;position:relative}
+.search-in{width:100%;padding:13px 16px 13px 44px;border:none;border-radius:14px;background:rgba(255,255,255,.15);color:#fff;font-family:'Nunito',sans-serif;font-size:.93rem;outline:none;backdrop-filter:blur(10px)}
+.search-in::placeholder{color:rgba(255,255,255,.5)}
+.search-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.6);font-size:1.1rem;pointer-events:none}
+
+/* Lang bar */
+.lang-bar{display:flex;gap:8px;padding:12px 16px;background:var(--white);border-bottom:1px solid var(--border)}
+body.dark .lang-bar{background:var(--white)}
+.lbtn{padding:7px 14px;border-radius:20px;border:2px solid var(--border);background:var(--gray);font-size:.78rem;font-weight:700;color:var(--text2);transition:all .2s}
+.lbtn.on{background:var(--orange);border-color:var(--orange);color:#fff}
+
+/* Scroll area */
+.hscroll{flex:1;overflow-y:auto;padding-bottom:80px}
+.hscroll::-webkit-scrollbar{display:none}
+
+/* Banner slider */
+.banners-wrap{padding:14px 14px 0;position:relative}
+.banners-inner{display:flex;transition:transform .4s ease;will-change:transform}
+.banner-card{min-width:calc(100% - 0px);border-radius:20px;padding:22px 20px;height:148px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;flex-shrink:0}
+.bc1{background:linear-gradient(135deg,#FF6B00,#FF4500)}
+.bc2{background:linear-gradient(135deg,#1A2B4A,#2a4080)}
+.bc3{background:linear-gradient(135deg,#00885A,#00B87C)}
+.banner-tag{background:rgba(255,255,255,.22);color:#fff;font-size:.7rem;font-weight:800;padding:4px 10px;border-radius:20px;display:inline-block;letter-spacing:1px}
+.banner-title{color:#fff;font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:800;margin-top:4px}
+.banner-btn{background:#fff;color:var(--orange);border:none;padding:8px 18px;border-radius:20px;font-weight:800;font-size:.8rem}
+.banner-emo{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:70px;opacity:.2}
+.bdots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+.bdot{width:6px;height:6px;border-radius:3px;background:var(--gray2);transition:all .3s}
+.bdot.on{width:20px;background:var(--orange)}
+
+/* Section */
+.sec-head{display:flex;justify-content:space-between;align-items:center;padding:18px 16px 10px}
+.sec-title{font-family:'Poppins',sans-serif;font-size:.98rem;font-weight:800;color:var(--navy)}
+body.dark .sec-title{color:var(--text)}
+.sec-all{color:var(--orange);font-size:.8rem;font-weight:700;background:none;border:none}
+
+/* Categories */
+.cats{display:flex;gap:10px;padding:0 16px;overflow-x:auto}
+.cats::-webkit-scrollbar{display:none}
+.cat{display:flex;flex-direction:column;align-items:center;gap:5px;background:var(--white);border-radius:16px;padding:12px 14px;cursor:pointer;border:2px solid transparent;transition:all .2s;min-width:66px;box-shadow:var(--shadow);flex-shrink:0}
+body.dark .cat{background:var(--gray2)}
+.cat.on{border-color:var(--orange);background:var(--orange-pale)}
+body.dark .cat.on{background:rgba(255,107,0,.15)}
+.cat span:first-child{font-size:1.4rem}
+.cat span:last-child{font-size:.68rem;font-weight:700;color:var(--text2)}
+.cat.on span:last-child{color:var(--orange)}
+
+/* Products grid */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 14px}
+.pcard{background:var(--white);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:transform .2s;position:relative;animation:fadeIn .3s ease both}
+body.dark .pcard{background:var(--gray2)}
+.pcard:active{transform:scale(.97)}
+.pimg{width:100%;aspect-ratio:1;background:var(--gray);display:flex;align-items:center;justify-content:center;font-size:2.8rem;position:relative;overflow:hidden}
+body.dark .pimg{background:#2a2a3e}
+.pimg img{width:100%;height:100%;object-fit:cover}
+.pwish{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);border:none;font-size:.9rem;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.pbadge{position:absolute;top:8px;left:8px;padding:3px 8px;border-radius:8px;font-size:.62rem;font-weight:800}
+.pb-hot{background:var(--red);color:#fff}
+.pb-new{background:var(--green);color:#fff}
+.pinfo{padding:10px 12px 12px}
+.pname{font-weight:800;font-size:.85rem;color:var(--navy);line-height:1.3;margin-bottom:3px}
+body.dark .pname{color:var(--text)}
+.pseller{font-size:.72rem;color:var(--text2);margin-bottom:5px}
+.pstars{display:flex;align-items:center;gap:3px;margin-bottom:7px}
+.pstars span{font-size:.65rem;color:var(--text2)}
+.pbot{display:flex;align-items:center;justify-content:space-between}
+.pprice{font-family:'Poppins',sans-serif;font-size:.88rem;font-weight:700;color:var(--orange)}
+.pprice small{font-size:.62rem}
+.padd{width:30px;height:30px;border-radius:10px;background:var(--orange);border:none;color:#fff;font-size:1.1rem;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-o)}
+
+/* Bottom nav */
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:var(--white);border-top:1px solid var(--border);display:flex;padding:8px 0 20px;z-index:50;box-shadow:0 -4px 20px rgba(26,43,74,.08)}
+body.dark .bnav{background:var(--gray2);border-color:var(--border)}
+.nitem{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:none;padding:4px 0}
+.nicon{font-size:1.25rem;transition:transform .2s}
+.nlabel{font-size:.6rem;font-weight:700;color:var(--text2);transition:color .2s}
+.nitem.on .nlabel{color:var(--orange)}
+.nitem.on .nicon{transform:scale(1.1)}
+.ncenter{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--orange),var(--orange2));display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-top:-18px;box-shadow:var(--shadow-o);border:none;color:#fff;cursor:pointer}
+
+/* ===== PRODUCT DETAIL ===== */
+#detail{background:var(--gray)}
+body.dark #detail{background:#161622}
+.dhead{background:var(--white);padding:48px 16px 14px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+body.dark .dhead{background:var(--gray2);border-color:var(--border)}
+.back-btn{width:36px;height:36px;border-radius:12px;background:var(--gray);border:none;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+body.dark .back-btn{background:#3a3a55}
+.dhead-title{font-weight:800;font-size:.98rem;flex:1}
+.dimg{background:var(--white);height:260px;display:flex;align-items:center;justify-content:center;font-size:7rem;overflow:hidden}
+.dimg img{width:100%;height:100%;object-fit:cover}
+.dbody{flex:1;overflow-y:auto;padding-bottom:100px}
+.dbody::-webkit-scrollbar{display:none}
+.dcard{background:var(--white);margin:12px 14px;border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+body.dark .dcard{background:var(--gray2)}
+.dname{font-family:'Poppins',sans-serif;font-size:1.1rem;font-weight:800;color:var(--navy)}
+body.dark .dname{color:var(--text)}
+.dprice{font-family:'Poppins',sans-serif;font-size:1.4rem;font-weight:800;color:var(--orange);margin-top:4px}
+.drating{display:flex;align-items:center;gap:6px;margin-top:8px}
+.dseller{display:flex;align-items:center;gap:10px;background:var(--gray);border-radius:12px;padding:12px;margin-top:12px}
+body.dark .dseller{background:#3a3a55}
+.savatar{width:40px;height:40px;border-radius:12px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;flex-shrink:0}
+.sinfo{flex:1}
+.sname{font-weight:800;font-size:.88rem}
+.sloc{font-size:.75rem;color:var(--text2)}
+.wa-btn{background:#25D366;color:#fff;border:none;padding:8px 14px;border-radius:10px;font-size:.8rem;font-weight:700}
+.ddesc{font-size:.87rem;color:var(--text2);line-height:1.7;margin-top:8px}
+.rev-section{margin:0 14px 10px}
+.rcard{background:var(--white);border-radius:14px;padding:12px;margin-top:8px;box-shadow:var(--shadow)}
+body.dark .rcard{background:var(--gray2)}
+.rname{font-weight:800;font-size:.85rem}
+.rtext{font-size:.8rem;color:var(--text2);margin-top:4px;line-height:1.5}
+.dfooter{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:var(--white);padding:14px;border-top:1px solid var(--border);display:flex;gap:12px}
+body.dark .dfooter{background:var(--gray2);border-color:var(--border)}
+.d-wish{width:48px;height:48px;border-radius:14px;border:2px solid var(--border);background:var(--white);font-size:1.3rem;display:flex;align-items:center;justify-content:center}
+body.dark .d-wish{background:var(--gray2)}
+.d-cart{flex:1;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;font-family:'Poppins',sans-serif;font-weight:700;font-size:.93rem;box-shadow:var(--shadow-o)}
+
+/* ===== SELL ===== */
+#sell{background:var(--gray)}
+body.dark #sell{background:#161622}
+.sell-top{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:48px 18px 22px;border-radius:0 0 26px 26px}
+.sell-top h2{color:#fff;font-family:'Poppins',sans-serif;font-size:1.25rem;font-weight:800}
+.sell-top p{color:rgba(255,255,255,.6);font-size:.82rem;margin-top:4px}
+.sform{padding:14px;flex:1;overflow-y:auto;padding-bottom:100px}
+.sform::-webkit-scrollbar{display:none}
+.fcard{background:var(--white);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:12px}
+body.dark .fcard{background:var(--gray2)}
+.fcard-title{font-weight:800;color:var(--navy);margin-bottom:12px;font-size:.93rem;display:flex;align-items:center;gap:8px}
+body.dark .fcard-title{color:var(--text)}
+.sin{width:100%;padding:13px 14px;border:2px solid var(--border);border-radius:12px;font-family:'Nunito',sans-serif;font-size:.9rem;color:var(--text);outline:none;transition:border-color .2s;background:var(--gray);margin-bottom:10px}
+body.dark .sin{background:#3a3a55;border-color:var(--border);color:var(--text)}
+.sin:focus{border-color:var(--orange);background:var(--white)}
+body.dark .sin:focus{background:#3a3a55}
+.sta{height:80px;resize:none}
+.img-box{border:2px dashed var(--orange);border-radius:14px;padding:22px;text-align:center;cursor:pointer;background:var(--orange-pale)}
+body.dark .img-box{background:rgba(255,107,0,.1)}
+.img-box p{color:var(--orange);font-weight:700;font-size:.85rem;margin-top:8px}
+.iprev-grid{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.iprev{width:68px;height:68px;border-radius:10px;object-fit:cover;background:var(--gray)}
+.evc-card{background:linear-gradient(135deg,var(--orange),#FF4500);border-radius:18px;padding:16px;color:#fff;margin-bottom:12px}
+.evc-t{font-weight:800;font-size:.95rem;display:flex;align-items:center;gap:8px}
+.evc-d{font-size:.8rem;opacity:.82;margin-top:4px}
+.evc-in{width:100%;padding:12px 14px;border:none;border-radius:12px;background:rgba(255,255,255,.2);color:#fff;font-family:'Nunito',sans-serif;font-size:.93rem;outline:none;font-weight:700;margin-top:12px}
+.evc-in::placeholder{color:rgba(255,255,255,.6)}
+.btn-sell-sub{width:100%;padding:15px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;font-family:'Poppins',sans-serif;font-weight:700;font-size:.98rem;box-shadow:var(--shadow-o)}
+
+/* ===== CART ===== */
+#cart{background:var(--gray)}
+body.dark #cart{background:#161622}
+.cart-head{background:var(--white);padding:48px 16px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+body.dark .cart-head{background:var(--gray2);border-color:var(--border)}
+.cart-title{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.05rem;flex:1}
+.cart-list{flex:1;overflow-y:auto;padding:12px 14px}
+.cart-list::-webkit-scrollbar{display:none}
+.citem{background:var(--white);border-radius:16px;padding:14px;margin-bottom:10px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:center}
+body.dark .citem{background:var(--gray2)}
+.cimg{font-size:2rem;width:54px;height:54px;background:var(--gray);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+body.dark .cimg{background:#3a3a55}
+.cimg img{width:100%;height:100%;object-fit:cover}
+.cinfo{flex:1}
+.cname{font-weight:800;font-size:.88rem}
+.cprice{color:var(--orange);font-weight:700;font-size:.85rem;margin-top:2px}
+.cqty{display:flex;align-items:center;gap:8px;margin-top:8px}
+.qbtn{width:26px;height:26px;border-radius:8px;border:2px solid var(--border);background:var(--white);font-size:.9rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+body.dark .qbtn{background:var(--gray2)}
+.qnum{font-weight:800;font-size:.9rem;min-width:20px;text-align:center}
+.cdel{margin-left:auto;background:none;border:none;color:var(--text2);font-size:1.1rem}
+.csummary{background:var(--white);border-top:1px solid var(--border);padding:16px;border-radius:22px 22px 0 0;box-shadow:0 -4px 20px rgba(26,43,74,.06)}
+body.dark .csummary{background:var(--gray2);border-color:var(--border)}
+.srow{display:flex;justify-content:space-between;font-size:.85rem;color:var(--text2);margin-bottom:8px}
+.stotal{display:flex;justify-content:space-between;font-family:'Poppins',sans-serif;font-weight:800;font-size:1rem;border-top:2px dashed var(--border);padding-top:10px;margin-top:4px}
+.evc-pay{background:var(--orange-pale);border-radius:14px;padding:14px;margin-top:12px}
+body.dark .evc-pay{background:rgba(255,107,0,.12)}
+.evc-pay-t{font-weight:800;color:var(--orange);font-size:.88rem}
+.evc-opts{display:flex;gap:8px;margin-top:10px}
+.eopt{flex:1;padding:10px;border:2px solid var(--border);border-radius:12px;text-align:center;font-weight:700;font-size:.8rem;background:var(--white);transition:all .2s}
+body.dark .eopt{background:var(--gray2);color:var(--text)}
+.eopt.on{border-color:var(--orange);background:var(--orange);color:#fff}
+.btn-checkout{width:100%;margin-top:14px;padding:15px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;font-family:'Poppins',sans-serif;font-weight:700;font-size:.98rem;box-shadow:var(--shadow-o)}
+
+/* ===== LOCATION ===== */
+#location{background:var(--gray)}
+body.dark #location{background:#161622}
+.map-ph{background:linear-gradient(135deg,#E8F4FD,#D4EAF7);height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-radius:18px;margin:12px 14px}
+.map-ph p{font-weight:700;color:var(--navy)}
+.area-list{padding:0 14px}
+.acard{background:var(--white);border-radius:14px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);cursor:pointer}
+body.dark .acard{background:var(--gray2)}
+.acard.on{border:2px solid var(--orange)}
+.acheck{color:var(--orange);font-size:1rem;margin-left:auto;opacity:0}
+.acard.on .acheck{opacity:1}
+.aname{font-weight:800;font-size:.88rem}
+.acnt{color:var(--text2);font-size:.75rem}
+
+/* ===== PROFILE ===== */
+#profile{background:var(--gray)}
+body.dark #profile{background:#161622}
+.prof-top{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:48px 18px 28px;text-align:center;border-radius:0 0 26px 26px}
+.prof-av{width:80px;height:80px;border-radius:24px;background:var(--orange);color:#fff;font-size:2rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;border:3px solid rgba(255,255,255,.25)}
+.prof-name{color:#fff;font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:800}
+.prof-email{color:rgba(255,255,255,.55);font-size:.8rem;margin-top:4px}
+.prof-stats{display:flex;margin-top:18px;background:rgba(255,255,255,.1);border-radius:16px;overflow:hidden}
+.pstat{flex:1;padding:12px;text-align:center}
+.pstat:not(:last-child){border-right:1px solid rgba(255,255,255,.15)}
+.pstat-n{color:#fff;font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:800}
+.pstat-l{color:rgba(255,255,255,.55);font-size:.68rem}
+.pmenu{padding:14px;flex:1;overflow-y:auto;padding-bottom:100px}
+.pmenu::-webkit-scrollbar{display:none}
+.mgroup{background:var(--white);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:12px}
+body.dark .mgroup{background:var(--gray2)}
+.mitem{display:flex;align-items:center;gap:14px;padding:15px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .15s}
+.mitem:last-child{border-bottom:none}
+.mitem:hover{background:var(--gray)}
+body.dark .mitem:hover{background:#3a3a55}
+.mico{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.ic-o{background:var(--orange-pale)}
+body.dark .ic-o{background:rgba(255,107,0,.15)}
+.ic-n{background:#EEF1F8}
+body.dark .ic-n{background:#3a3a55}
+.ic-g{background:#E6FAF4}
+body.dark .ic-g{background:rgba(0,178,116,.1)}
+.ic-r{background:#FFEBEE}
+.mtxt{flex:1;font-weight:700;font-size:.9rem}
+.marr{color:var(--text2);font-size:.8rem}
+.btn-logout{width:calc(100% - 28px);margin:0 14px;padding:14px;border:2px solid var(--red);border-radius:14px;background:var(--white);color:var(--red);font-family:'Poppins',sans-serif;font-weight:700;font-size:.93rem}
+body.dark .btn-logout{background:var(--gray2)}
+
+/* ===== CHAT LIST ===== */
+#chatlist{background:var(--white)}
+body.dark #chatlist{background:var(--gray2)}
+.screen-head{background:var(--white);padding:48px 16px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+body.dark .screen-head{background:var(--gray2);border-color:var(--border)}
+.shead-title{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.05rem;flex:1}
+.chat-items{flex:1;overflow-y:auto}
+.chat-items::-webkit-scrollbar{display:none}
+.chitem{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .15s;background:var(--white)}
+body.dark .chitem{background:var(--gray2);border-color:var(--border)}
+.chitem:hover{background:var(--gray)}
+body.dark .chitem:hover{background:#3a3a55}
+.chav{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--orange));color:#fff;font-weight:800;font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
+.ch-online{position:absolute;bottom:2px;right:2px;width:11px;height:11px;border-radius:50%;background:var(--green);border:2px solid var(--white)}
+body.dark .ch-online{border-color:var(--gray2)}
+.chinfo{flex:1;min-width:0}
+.chname{font-weight:800;font-size:.9rem}
+.chmsg{font-size:.78rem;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.chtime{font-size:.7rem;color:var(--text2);flex-shrink:0}
+.chunread{background:var(--orange);color:#fff;width:18px;height:18px;border-radius:50%;font-size:.65rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+/* ===== CHAT ROOM ===== */
+#chatroom{background:var(--gray)}
+body.dark #chatroom{background:#161622}
+.cr-head{background:var(--white);padding:48px 14px 14px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+body.dark .cr-head{background:var(--gray2);border-color:var(--border)}
+.cr-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--orange));color:#fff;font-weight:800;font-size:.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cr-info{flex:1}
+.cr-name{font-weight:800;font-size:.95rem}
+.cr-status{font-size:.72rem;color:var(--green)}
+.cr-msgs{flex:1;overflow-y:auto;padding:14px 14px 80px;display:flex;flex-direction:column;gap:10px}
+.cr-msgs::-webkit-scrollbar{display:none}
+.bubble{max-width:72%;padding:10px 14px;border-radius:18px;font-size:.86rem;line-height:1.5}
+.bme{background:var(--orange);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.bthem{background:var(--white);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px;box-shadow:var(--shadow)}
+body.dark .bthem{background:var(--gray2)}
+.btime{font-size:.63rem;opacity:.65;margin-top:3px}
+.datesep{text-align:center;font-size:.72rem;color:var(--text2);padding:6px 0}
+.cr-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:var(--white);padding:10px 14px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;z-index:50}
+body.dark .cr-bar{background:var(--gray2);border-color:var(--border)}
+.cr-in{flex:1;padding:11px 16px;border-radius:24px;border:2px solid var(--border);background:var(--gray);font-family:'Nunito',sans-serif;font-size:.9rem;outline:none;color:var(--text)}
+body.dark .cr-in{background:#3a3a55}
+.cr-in:focus{border-color:var(--orange)}
+.cr-send{width:42px;height:42px;border-radius:50%;background:var(--orange);border:none;color:#fff;font-size:1.1rem;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-o);flex-shrink:0}
+
+/* ===== NOTIFICATIONS ===== */
+#notifs{background:var(--gray)}
+body.dark #notifs{background:#161622}
+.notif-items{flex:1;overflow-y:auto}
+.notif-items::-webkit-scrollbar{display:none}
+.nitem{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;background:var(--white);border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+body.dark .nitem{background:var(--gray2);border-color:var(--border)}
+.nitem.unread{background:var(--orange-pale);border-left:3px solid var(--orange)}
+body.dark .nitem.unread{background:rgba(255,107,0,.1)}
+.nico{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.ico-o{background:var(--orange-pale)} body.dark .ico-o{background:rgba(255,107,0,.15)}
+.ico-g{background:#E6FAF4} body.dark .ico-g{background:rgba(0,178,116,.1)}
+.ico-b{background:#E8F0FE} body.dark .ico-b{background:rgba(66,133,244,.1)}
+.ncontent{flex:1}
+.ntitle{font-weight:800;font-size:.86rem;color:var(--text);margin-bottom:3px}
+.nmsg{font-size:.78rem;color:var(--text2);line-height:1.4}
+.ntime{font-size:.7rem;color:var(--text2);margin-top:4px}
+.ndot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:6px}
+.mark-all{background:none;border:none;color:var(--orange);font-size:.8rem;font-weight:700}
+
+/* ===== DASHBOARD ===== */
+#dashboard{background:var(--gray)}
+body.dark #dashboard{background:#161622}
+.dash-top{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:48px 16px 22px;border-radius:0 0 26px 26px}
+.dash-top h2{color:#fff;font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:800}
+.dash-top p{color:rgba(255,255,255,.6);font-size:.8rem;margin-top:4px}
+.dash-stats{display:flex;gap:10px;margin-top:16px}
+.dstat{flex:1;background:rgba(255,255,255,.12);border-radius:16px;padding:14px;text-align:center}
+.dstat-n{color:#fff;font-family:'Poppins',sans-serif;font-size:1.4rem;font-weight:800}
+.dstat-l{color:rgba(255,255,255,.6);font-size:.68rem;margin-top:2px}
+.dbody{flex:1;overflow-y:auto;padding:14px;padding-bottom:100px}
+.dbody::-webkit-scrollbar{display:none}
+.dcard{background:var(--white);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:12px}
+body.dark .dcard{background:var(--gray2)}
+.dcard-t{font-weight:800;font-size:.93rem;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.dlisting{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.dlisting:last-of-type{border-bottom:none}
+.dlem{width:46px;height:46px;border-radius:12px;background:var(--gray);display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+body.dark .dlem{background:#3a3a55}
+.dlinfo{flex:1}
+.dlname{font-weight:800;font-size:.86rem}
+.dlprice{color:var(--orange);font-weight:700;font-size:.8rem}
+.dlviews{font-size:.72rem;color:var(--text2)}
+.dstatus{padding:3px 10px;border-radius:20px;font-size:.68rem;font-weight:800}
+.ds-active{background:#E6FAF4;color:var(--green)}
+.ds-sold{background:#FFEBEE;color:var(--red)}
+.chart-rows{display:flex;flex-direction:column;gap:8px}
+.crow{display:flex;align-items:center;gap:10px}
+.clabel{width:56px;font-size:.76rem;color:var(--text2)}
+.cbar{flex:1;background:var(--gray2);border-radius:4px;height:10px;overflow:hidden}
+body.dark .cbar{background:#3a3a55}
+.cbar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--orange),var(--orange2));transition:width 1s ease}
+.cval{width:46px;text-align:right;font-weight:700;font-size:.76rem}
+.evc-dash{background:linear-gradient(135deg,var(--orange),#FF4500);border-radius:14px;padding:16px;color:#fff}
+.evc-dash-btns{display:flex;gap:10px;margin-top:12px}
+.evc-dash-btn{flex:1;padding:10px;background:rgba(255,255,255,.2);border:none;border-radius:10px;color:#fff;font-weight:700;font-size:.82rem}
+
+/* ===== DARK TOGGLE ===== */
+.dark-btn{position:fixed;bottom:88px;right:14px;z-index:200;width:42px;height:42px;border-radius:50%;background:var(--navy);color:#fff;border:none;font-size:1.15rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+body.dark .dark-btn{background:var(--orange)}
+
+/* ===== TOAST & MODAL ===== */
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:11px 22px;border-radius:30px;font-weight:700;font-size:.86rem;opacity:0;transition:all .3s;z-index:999;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;align-items:flex-end;justify-content:center}
+.modal-ov.on{display:flex}
+.msheet{background:var(--white);border-radius:24px 24px 0 0;padding:22px;width:100%;max-width:420px;animation:slideUp .3s ease}
+body.dark .msheet{background:var(--gray2)}
+.mhandle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 18px}
+.mtitle{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.05rem;margin-bottom:14px}
+.sico{font-size:3.2rem;text-align:center;margin-bottom:10px;display:block}
+.stitle{text-align:center;font-family:'Poppins',sans-serif;font-weight:800;font-size:1.1rem;color:var(--navy)}
+body.dark .stitle{color:var(--text)}
+.ssub{text-align:center;color:var(--text2);font-size:.85rem;margin-top:6px}
+.mbtn{width:100%;margin-top:18px;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;font-family:'Poppins',sans-serif;font-weight:700;font-size:.93rem}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes loadbar{from{width:0}to{width:100%}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes obfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+/* Midabka isbeddelaya marka lacag la doorto */
+.pay-opt.on {
+    border: 2px solid var(--orange) !important;
+    background: #fff5ee !important;
+}
+/* Container-ka guud ee qaybta hoose */
+.csummary {
+    background: #fff !important;
+    padding: 20px !important;
+    border-top: 1px dashed #ddd !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Inay isku saf galaan EVC, Zaad, eDahab */
+.pay-options {
+    display: flex !important;
+    flex-direction: row !important; /* Qasab inay is-dhinac galaan */
+    justify-content: space-between !important;
+    gap: 8px !important;
+    margin: 15px 0 !important;
+    width: 100% !important;
+}
+
+/* Sanduukh kasta oo lacagta ah */
+.pay-opt {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 10px 5px !important;
+    border: 1px solid #eee !important;
+    border-radius: 12px !important;
+    background: #fcfcfc !important;
+}
+
+/* Sawirada lacagta (EVC/Zaad icons) */
+.pay-opt img {
+    width: 35px !important;
+    height: 35px !important;
+    object-fit: contain !important;
+    margin-bottom: 4px !important;
+}
+
+.pay-opt span {
+    font-size: 10px !important;
+    color: #555 !important;
+}
+
+/* BADHANKA BALLAARAN (Dalbo Hadda) */
+.btn-checkout {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important; /* Inuu ballaca wada qaato */
+    height: 55px !important; /* Dhumucda badhanka */
+    background: #f27c38 !important; /* Midabka orange-ka ah */
+    color: white !important;
+    border: none !important;
+    border-radius: 15px !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    margin-top: 15px !important;
+    cursor: pointer !important;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ===== SPLASH ===== -->
+<div class="screen on" id="splash">
+  <span class="splash-bag">🛍️</span>
+  <div class="splash-title">Somali<span>zon</span></div>
+  <div class="splash-tag">Hal Meel Ka Iibso Ku Iibso</div>
+  <div class="splash-bar"><div class="splash-fill"></div></div>
+</div>
+
+<!-- ===== ONBOARDING ===== -->
+<div class="screen" id="onboard">
+  <div class="ob-wrap">
+    <div class="ob-slide on"><div class="ob-emo">🛒</div><div class="ob-title">Ku Soo Dhawow Somalizon!</div><div class="ob-desc">Suuqa ugu weyn ee Somaliland. Alaab kasta aad rabtid halkaan ayaad ka heleysaa.</div></div>
+    <div class="ob-slide"><div class="ob-emo">📦</div><div class="ob-title">Alaab Ku Iib Fudud</div><div class="ob-desc">Sawir qaad, qiime gali — daqiiqo gudahood suuqa ayay galeysaa!</div></div>
+    <div class="ob-slide"><div class="ob-emo">💳</div><div class="ob-title">EVC & Zaad La Bixiso</div><div class="ob-desc">Lacag bixin fudud oo amaan ah. Hargeisa oo dhan ayaa la gaarsiin karaa.</div></div>
+  </div>
+  <div class="ob-dots"><div class="ob-dot on"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
+  <div class="ob-foot">
+    <button class="btn-skip" onclick="goAuth()">Bood</button>
+    <button class="btn-next" id="obnext" onclick="obNext()">Xiga ➜</button>
+  </div>
+</div>
+
+<!-- ===== AUTH ===== -->
+<div class="screen" id="auth">
+  <div class="auth-top">
+    <div class="auth-logo">Somali<span>zon</span></div>
+    <div class="auth-sub">Hal Meel Ka Iibso Ku Iibso</div>
+  </div>
+  <div class="auth-tabs">
+    <button class="atab on" onclick="swAuth('login',this)">Gal</button>
+    <button class="atab" onclick="swAuth('reg',this)">Is-Diiwaan Geli</button>
+  </div>
+  <div class="auth-form" id="loginForm">
+    <br>
+    <label class="flabel">Iimaylka</label>
+    <input class="finput" type="email" placeholder="adiga@email.com" id="loginEmail">
+    <label class="flabel">Furaha Sirta</label>
+    <input class="finput" type="password" placeholder="••••••••" id="loginPass">
+    <button class="btn-main" onclick="doLogin()">▶ Gal Somalizon</button>
+    <div class="divider"><div class="divider-line"></div><div class="divider-txt">ama</div><div class="divider-line"></div></div>
+    <button class="btn-social" onclick="doLogin()">🌐 Google Account ku Gal</button>
+    <div class="evc-note">💳 EVC Plus & Zaad — La Qaataa!</div>
+  </div>
+  <div class="auth-form" id="regForm" style="display:none">
+    <br>
+    <label class="flabel">Magacaaga</label><input class="finput" type="text" placeholder="Tusaale: Ahmed Shaakir" id="regName">
+    <label class="flabel">Iimaylka</label><input class="finput" type="email" placeholder="adiga@email.com" id="regEmail">
+    <label class="flabel">Telefoonka</label><input class="finput" type="tel" placeholder="063XXXXXXX" id="regPhone">
+    <label class="flabel">Furaha Sirta</label><input class="finput" type="password" placeholder="••••••••" id="regPass">
+    <button class="btn-main" onclick="doRegister()">✅ Account Samee</button>
+    <div class="evc-note">💳 EVC Plus & Zaad — La Qaataa!</div>
+  </div>
+</div>
+
+<!-- ===== HOME ===== -->
+<div class="screen" id="home">
+  <div class="home-top">
+    <div class="home-top-row">
+      <div>
+        <div class="home-greet" id="greetTxt">Assalamu Calaykum 👋</div>
+        <div class="home-name" id="homeUser">Ahmed Shaakir</div>
+      </div>
+      <div class="hicons">
+        <button class="hbtn" onclick="go('notifs')">🔔<span class="hbadge" id="nbadge">3</span></button>
+        <button class="hbtn" onclick="go('cart')">🛒<span class="hbadge" id="cbadge">0</span></button>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <span class="search-ico">🔍</span>
+      <input class="search-in" id="searchIn" placeholder="Raadi alaab, iibiye..." oninput="doSearch(this.value)">
+    </div>
+  </div>
+
+  <!-- Lang bar -->
+  <div class="lang-bar">
+    <button class="lbtn on" onclick="setLang('so',this)">🇸🇴 Somali</button>
+    <button class="lbtn" onclick="setLang('ar',this)">🇸🇦 عربي</button>
+    <button class="lbtn" onclick="setLang('en',this)">🇬🇧 English</button>
+  </div>
+
+  <div class="hscroll">
+    <!-- Banner -->
+    <div class="banners-wrap">
+      <div class="banners-inner" id="bannersInner">
+        <div class="banner-card bc1"><div><div class="banner-tag">✨ CUSUB</div><div class="banner-title">Alaab Cusub<br>Soo Gaaray!</div></div><button class="banner-btn">Arki →</button><div class="banner-emo">🛍️</div></div>
+        <div class="banner-card bc2"><div><div class="banner-tag">🔥 HOT</div><div class="banner-title">Tignoolaji<br>Hore u Iibso!</div></div><button class="banner-btn" style="color:var(--navy)">Arki →</button><div class="banner-emo">📱</div></div>
+        <div class="banner-card bc3"><div><div class="banner-tag">🎉 XUSUS</div><div class="banner-title">Dharka<br>Casriga!</div></div><button class="banner-btn" style="color:var(--green)">Arki →</button><div class="banner-emo">👗</div></div>
+      </div>
+      <div class="bdots" id="bdots"><div class="bdot on"></div><div class="bdot"></div><div class="bdot"></div></div>
+    </div>
+
+    <!-- Categories -->
+    <div class="sec-head"><div class="sec-title" id="catTitle">Noocyada</div><button class="sec-all">Dhammaan</button></div>
+    <div class="cats">
+      <div class="cat on" onclick="filterCat('all',this)"><span>🏠</span><span id="c0">Dhammaan</span></div>
+      <div class="cat" onclick="filterCat('dharka',this)"><span>👗</span><span id="c1">Dharka</span></div>
+      <div class="cat" onclick="filterCat('tignoolaji',this)"><span>📱</span><span id="c2">Tiknoolaji</span></div>
+      <div class="cat" onclick="filterCat('guriga',this)"><span>🏠</span><span id="c3">Guriga</span></div>
+      <div class="cat" onclick="filterCat('cuntada',this)"><span>🍽️</span><span id="c4">Cuntada</span></div>
+      <div class="cat" onclick="filterCat('baabuur',this)"><span>🚗</span><span id="c5">Baabuur</span></div>
+    </div>
+
+    <!-- Products -->
+    <div class="sec-head"><div class="sec-title" id="prodTitle">Alaabta Joogtada 🔥</div><button class="sec-all" onclick="toast('Dhammaan alaabta')">Dhammaan</button></div>
+    <div class="pgrid" id="pgrid"></div>
+    <div style="height:16px"></div>
+  </div>
+
+  <nav class="bnav">
+    <button class="nitem on" onclick="setNav(this);go('home')"><span class="nicon">🏠</span><span class="nlabel" id="nl0">Hoyga</span></button>
+    <button class="nitem" onclick="setNav(this);go('chatlist')"><span class="nicon">💬</span><span class="nlabel" id="nl1">Xariir</span></button>
+    <button class="ncenter" onclick="go('sell')">➕</button>
+    <button class="nitem" onclick="setNav(this);go('cart')"><span class="nicon">🛒</span><span class="nlabel" id="nl2">Basket</span></button>
+    <button class="nitem" onclick="setNav(this);go('profile')"><span class="nicon">👤</span><span class="nlabel" id="nl3">Profile</span></button>
+  </nav>
+</div>
+
+<!-- ===== PRODUCT DETAIL ===== -->
+<div class="screen" id="detail">
+  <div class="dhead">
+    <button class="back-btn" onclick="go('home')">←</button>
+    <div class="dhead-title">Faahfaahinta Alaabta</div>
+    <button class="hbtn" onclick="toggleWish()" id="wishBtn" style="background:var(--gray);color:var(--text)">🤍</button>
+  </div>
+  <div class="dimg" id="dimg">📱</div>
+  <div class="dbody">
+    <div class="dcard">
+      <div class="dname" id="dname">Samsung Galaxy S23</div>
+      <div class="dprice" id="dprice">1,800,000 Sh.So</div>
+      <div class="drating"><span id="dstars">⭐⭐⭐⭐⭐</span><span style="font-size:.8rem;color:var(--text2)" id="drc">4.8 (32)</span></div>
+      <div class="dseller">
+        <div class="savatar" id="dsav">M</div>
+        <div class="sinfo"><div class="sname" id="dsname">Maxamed Cali</div><div class="sloc" id="dsloc">📍 Hargeisa</div></div>
+        <button class="wa-btn" onclick="openWA()">💬 WhatsApp</button>
+      </div>
+      <div class="ddesc" id="ddesc">Faahfaahinta alaabta</div>
+    </div>
+    <div class="rev-section">
+      <div class="sec-head" style="padding:0 0 10px"><div class="sec-title">Faallooyinka ⭐</div><button class="sec-all" onclick="openRevModal()">+ Faallo</button></div>
+      <div id="revList">
+        <div class="rcard"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div class="rname">Faadumo A.</div><div style="font-size:.72rem;color:var(--star)">⭐⭐⭐⭐⭐</div></div><div class="rtext">Alaabta aad ayay u fiicantahay! Iibiyaha si degdeg ah ayuu u diray.</div></div>
+        <div class="rcard"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div class="rname">Cabdi W.</div><div style="font-size:.72rem;color:var(--star)">⭐⭐⭐⭐</div></div><div class="rtext">Qiimahu wuu wanaagsan yahay. Waan ku faraxsanahay!</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="dfooter">
+    <button class="d-wish" onclick="toggleWish()" id="wishBtn2">🤍</button>
+    <button class="d-cart" onclick="addCurToCart()">🛒 Basket Ku Dar</button>
+  </div>
+</div>
+
+<!-- ===== SELL ===== -->
+<div class="screen" id="sell">
+  <div class="sell-top">
+    <h2>📦 Alaabta Iib</h2>
+    <p>Sawir qaad, qiime gali, dhaq dhaqaaq!</p>
+  </div>
+  <div class="sform">
+    <div class="fcard">
+      <div class="fcard-title">📸 Sawirka Alaabta</div>
+      <div class="img-box" onclick="document.getElementById('imgIn').click()">
+        <input type="file" id="imgIn" accept="image/*" multiple onchange="handleImg(this)" style="display:none">
+        <div style="font-size:2.5rem">📷</div>
+        <p>Sawir Dooro ama Qaad</p>
+        <p style="color:var(--text2);font-size:.75rem;font-weight:400;margin-top:4px">Ilaa 5 sawir</p>
+      </div>
+      <div class="iprev-grid" id="iprevs"></div>
+    </div>
+    <div class="fcard">
+      <div class="fcard-title">📝 Macluumaadka Alaabta</div>
+      <label class="flabel">Magaca Alaabta *</label>
+      <input class="sin" type="text" placeholder="Tusaale: iPhone 15 Pro Max" id="sName">
+      <label class="flabel">Nooca Alaabta *</label>
+      <select class="sin" id="sCat" style="appearance:none;cursor:pointer">
+        <option value="">-- Dooro Nooca --</option>
+        <option value="tignoolaji">📱 Tignoolajiyada</option>
+        <option value="dharka">👗 Dharka</option>
+        <option value="guriga">🏠 Alaabta Guriga</option>
+        <option value="cuntada">🍽️ Cuntada</option>
+        <option value="baabuur">🚗 Gaadiidka</option>
+        <option value="kale">📦 Kale</option>
+      </select>
+      <label class="flabel">Sharaxaad</label>
+      <textarea class="sin sta" placeholder="Sharax alaabta..." id="sDesc"></textarea>
+    </div>
+    <div class="fcard">
+      <div class="fcard-title">💰 Qiimaha & Xiriirka</div>
+      <label class="flabel">Qiimaha (Sh.So) *</label>
+      <input class="sin" type="number" placeholder="Tusaale: 500000" id="sPrice">
+      <label class="flabel">Telefoonka *</label>
+      <input class="sin" type="tel" placeholder="063XXXXXXX" id="sPhone">
+      <label class="flabel">📍 Xaafadda</label>
+      <select class="sin" id="sLoc" style="appearance:none;cursor:pointer">
+        <option value="">-- Dooro Xaafadda --</option>
+        <option>26 June</option><option>Mohamoud Haybe</option><option>Sha'ab</option>
+        <option>Jigjiga Yar</option><option>Gacaan Libaax</option><option>Macalin Xaashi</option>
+      </select>
+  </div>
+    <div class="evc-card">
+      <div class="evc-t">💳 EVC Plus / Zaad</div>
+      <div class="evc-d">Lacagta iibsiga si toos ah loo kuu diri karaa numberkaaga</div>
+      <input class="evc-in" type="tel" placeholder="EVC/Zaad Number: 063XXXXXXX" id="sEVC">
+    </div>
+    <button class="btn-sell-sub" onclick="submitProd()">🚀 Ku Dar Suuqa Somalizon</button>
+    <br><br>
+  </div>
+ <nav class="bnav">
+    <button class="nitem" onclick="setNav(this); go('home')">
+        <span class="nicon">🏠</span><span class="nlabel">Hoyga</span>
+    </button>
+    <button class="nitem" onclick="setNav(this); go('chatlist')">
+        <span class="nicon">💬</span><span class="nlabel">Xariir</span>
+    </button>
+    <button class="ncenter" onclick="go('sell')">➕</button>
+    <button class="nitem" onclick="setNav(this); go('cart')">
+        <span class="nicon">🛒</span><span class="nlabel">Basket</span>
+    </button>
+    <button class="nitem" onclick="setNav(this); go('profile')">
+        <span class="nicon">👤</span><span class="nlabel">Profile</span>
+    </button>
+</nav>
+</div>
+<!-- 1. SCREEN-KA XARIIRKA -->
+<div class="screen" id="chatlist">
+  <div class="cart-head">
+    <button class="back-btn" onclick="go('home')">←</button>
+    <div class="cart-title">💬 Farriimaha</div>
+  </div>
+  <div id="chatItems" style="padding:20px; text-align:center; color:#888;">
+    <p>Ma jiraan farriimo cusub hadda.</p>
+  </div>
+</div>
+
+<!-- ===== PROFILE SCREEN ===== -->
+<div class="screen" id="profile">
+  <div class="prof-top">
+    <div class="prof-av">A</div>
+    <div class="prof-name">Ahmed Shaakir</div>
+    <div class="prof-email">ahmed@somalizon.com</div>
+    <div class="prof-stats">
+      <div class="pstat"><div class="pstat-n">12</div><div class="pstat-l">Dalabyo</div></div>
+      <div class="pstat"><div class="pstat-n">5</div><div class="pstat-l">Jecel</div></div>
+      <div class="pstat"><div class="pstat-n">2</div><div class="pstat-l">Iibinta</div></div>
+    </div>
+  </div>
+
+  <div class="pmenu">
+    <div class="mgroup">
+      <div class="mitem"><div class="mico" style="background:#fff3e0">📦</div><div class="mtxt">Dalabyadeeyda</div><div class="marr">›</div></div>
+      <div class="mitem"><div class="mico" style="background:#ffebee">❤️</div><div class="mtxt">Jecel yahay</div><div class="marr">›</div></div>
+    </div>
+    <div class="mgroup">
+      <div class="mitem" onclick="go('chatlist')"><div class="mico" style="background:#e3f2fd">💬</div><div class="mtxt">Farriimaha</div><div class="marr">›</div></div>
+      <div class="mitem"><div class="mico" style="background:#f1f8e9">💳</div><div class="mtxt">EVC / Zaad Numberka</div><div class="marr">›</div></div>
+    </div>
+    <button class="btn-logout" onclick="doLogout()">🚪 Ka Bax</button>
+  </div>
+
+  <nav class="bnav">
+    <button class="nitem" onclick="setNav(this);go('home')"><span class="nicon">🏠</span><span class="nlabel">Hoyga</span></button>
+    <button class="nitem" onclick="setNav(this);go('chatlist')"><span class="nicon">💬</span><span class="nlabel">Xariir</span></button>
+    <button class="ncenter" onclick="go('sell')">➕</button>
+    <button class="nitem" onclick="setNav(this);go('cart')"><span class="nicon">🛒</span><span class="nlabel">Basket</span></button>
+    <button class="nitem on" onclick="setNav(this);go('profile')"><span class="nicon">👤</span><span class="nlabel">Profile</span></button>
+  </nav>
+</div>
+<!-- ===== CART ===== -->
+<!-- Qaybta dambiisha (Cart Screen) -->
+<div class="screen" id="cart">
+    <div class="cart-head">
+        <button class="back-btn" onclick="go('home')">←</button>
+        <div class="cart-title">Basketkaaga 🛒</div>
+    </div>
+
+    <!-- Halkan waxaa soo gelaya alaabta aad dambiisha ku dartay -->
+    <div class="cart-list" id="cartList"></div>
+
+    <!-- Qaybta hoose ee Lacag bixinta iyo Dalbashada -->
+    <div class="csummary" id="csummary">
+        <div class="srow">
+            <span>Alaabaha</span>
+            <span id="sItems">0</span>
+        </div>
+        <div class="srow">
+            <span>Gaadhsiinta</span>
+            <span>Bilaash</span>
+        </div>
+        <div class="stotal">
+            <span>Wadarta</span>
+            <span id="sTotal">Sh.So 0</span>
+        </div>
+
+        <div class="evc-pay">
+            <div class="evc-pay-t">💳 Lacag Bixinta Doorso</div>
+            
+            <!-- Xulashooyinka Lacagta -->
+            <div class="pay-options" id="vc-opts">
+                <div class="pay-opt on" onclick="selPay(this, 'evc')">
+                    <img src="evc.png">
+                    <span>EVC Plus</span>
+                </div>
+                <div class="pay-opt" onclick="selPay(this, 'zaad')">
+                    <img src="telesom.png">
+                    <span>Zaad</span>
+                </div>
+                <div class="pay-opt" onclick="selPay(this, 'edahab')">
+                    <img src="somtel.png">
+                    <span>eDahab</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Badhanka ugu dambeeya ee ballaran -->
+        <button class="btn-checkout" onclick="doCheckout()"> Dalbo Hadda</button>
+    </div>
+</div>
+    </div>
+</div>
+   
+
+<!-- ===== LOCATION ===== -->
+<div class="screen" id="location">
+  <div class="screen-head">
+    <button class="back-btn" onclick="go('home')">←</button>
+    <div class="shead-title">📍 Xaafadaha Hargeisa</div>
+  </div>
+  <div class="map-ph"><div style="font-size:4rem">🗺️</div><p>Hargeisa, Somaliland</p><span style="font-size:.8rem;color:var(--text2)">Xaafadda doorso</span></div>
+  <div class="area-list">
+    <div class="acard on" onclick="selArea(this)"><span style="font-size:1.4rem">🏙️</span><div><div class="aname">Dhammaan Hargeisa</div><div class="acnt">500+ Alaab</div></div><span class="acheck">✓</span></div>
+    <div class="acard" onclick="selArea(this)"><span style="font-size:1.4rem">🏘️</span><div><div class="aname">26 June</div><div class="acnt">128 Alaab</div></div><span class="acheck">✓</span></div>
+    <div class="acard" onclick="selArea(this)"><span style="font-size:1.4rem">🏘️</span><div><div class="aname">Mohamoud Haybe</div><div class="acnt">94 Alaab</div></div><span class="acheck">✓</span></div>
+    <div class="acard" onclick="selArea(this)"><span style="font-size:1.4rem">🏘️</span><div><div class="aname">Sha'ab</div><div class="acnt">76 Alaab</div></div><span class="acheck">✓</span></div>
+    <div class="acard" onclick="selArea(this)"><span style="font-size:1.4rem">🏘️</span><div><div class="aname">Jigjiga Yar</div><div class="acnt">61 Alaab</div></div><span class="acheck">✓</span></div>
+    <div class="acard" onclick="selArea(this)"><span style="font-size:1.4rem">🏘️</span><div><div class="aname">Gacaan Libaax</div><div class="acnt">45 Alaab</div></div><span class="acheck">✓</span></div>
+  </div>
+  <br>
+</div>
+
+<!-- ===== PROFILE ===== -->
+<div class="screen" id="profile">
+  <div class="prof-top">
+    <div class="prof-av" id="profAv">A</div>
+    <div class="prof-name" id="profName">Ahmed Shaakir</div>
+    <div class="prof-email" id="profEmail">ahmed@somalizon.com</div>
+    <div class="prof-stats">
+      <div class="pstat"><div class="pstat-n">12</div><div class="pstat-l">Dalabyo</div></div>
+      <div class="pstat"><div class="pstat-n" id="pWish">0</div><div class="pstat-l">Jecel</div></div>
+      <div class="pstat"><div class="pstat-n" id="pSell">0</div><div class="pstat-l">Iibinta</div></div>
+    </div>
+  </div>
+  <div class="pmenu">
+    <div class="mgroup">
+      <div class="mitem"><div class="mico ic-o">📦</div><div class="mtxt">Dalabyadeeyda</div><div class="marr">›</div></div>
+      <div class="mitem"><div class="mico ic-o">❤️</div><div class="mtxt">Jecel yahay</div><div class="marr">›</div></div>
+      <div class="mitem" onclick="go('sell')"><div class="mico ic-o">🛍️</div><div class="mtxt">Alaabteeyda La Iibinayo</div><div class="marr">›</div></div>
+      <div class="mitem" onclick="go('dashboard')"><div class="mico ic-o">📊</div><div class="mtxt">Dashboard Iibiyaha</div><div class="marr">›</div></div>
+    </div>
+    <div class="mgroup">
+      <div class="mitem" onclick="go('chatlist')"><div class="mico ic-n">💬</div><div class="mtxt">Farriimaha</div><div class="marr">›</div></div>
+      <div class="mitem" onclick="go('notifs')"><div class="mico ic-n">🔔</div><div class="mtxt">Ogeysiisyada</div><div class="marr">›</div></div>
+      <div class="mitem"><div class="mico ic-n">💳</div><div class="mtxt">EVC / Zaad Numberka</div><div class="marr">›</div></div>
+      <div class="mitem" onclick="go('location')"><div class="mico ic-n">📍</div><div class="mtxt">Cinwaanka Gaadhsiinta</div><div class="marr">›</div></div>
+    </div>
+    <div class="mgroup">
+      <div class="mitem"><div class="mico ic-g">💬</div><div class="mtxt">Caawinaanta</div><div class="marr">›</div></div>
+      <div class="mitem"><div class="mico ic-g">⭐</div><div class="mtxt">App-ka Rate Geli</div><div class="marr">›</div></div>
+    </div>
+    <br>
+    <button class="btn-logout" onclick="doLogout()">🚪 Ka Bax</button>
+    <br><br><br>
+  </div>
+  <nav class="bnav">
+    <button class="nitem" onclick="setNav(this);go('home')"><span class="nicon">🏠</span><span class="nlabel">Hoyga</span></button>
+    <button class="nitem" onclick="setNav(this);go('chatlist')"><span class="nicon">💬</span><span class="nlabel">Xariir</span></button>
+    <button class="ncenter" onclick="go('sell')">➕</button>
+    <button class="nitem" onclick="setNav(this);go('cart')"><span class="nicon">🛒</span><span class="nlabel">Basket</span></button>
+    <button class="nitem on" onclick="setNav(this);go('profile')"><span class="nicon">👤</span><span class="nlabel">Profile</span></button>
+  </nav>
+</div>
+
+<!-- ===== CHAT LIST ===== -->
+<div class="screen" id="chatlist">
+  <div class="screen-head">
+    <button class="back-btn" onclick="go('home')">←</button>
+    <div class="shead-title">💬 Farriimaha</div>
+  </div>
+  <div class="chat-items" id="chatItems"></div>
+  <nav class="bnav">
+    <button class="nitem" onclick="setNav(this);go('home')"><span class="nicon">🏠</span><span class="nlabel">Hoyga</span></button>
+    <button class="nitem on" onclick="setNav(this);go('chatlist')"><span class="nicon">💬</span><span class="nlabel">Xariir</span></button>
+    <button class="ncenter" onclick="go('sell')">➕</button>
+    <button class="nitem" onclick="setNav(this);go('cart')"><span class="nicon">🛒</span><span class="nlabel">Basket</span></button>
+    <button class="nitem" onclick="setNav(this);go('profile')"><span class="nicon">👤</span><span class="nlabel">Profile</span></button>
+  </nav>
+</div>
+
+<!-- ===== CHAT ROOM ===== -->
+<div class="screen" id="chatroom">
+  <div class="cr-head">
+    <button class="back-btn" onclick="go('chatlist')">←</button>
+    <div class="cr-av" id="crAv">M</div>
+    <div class="cr-info">
+      <div class="cr-name" id="crName">Maxamed Cali</div>
+      <div class="cr-status" id="crStatus">🟢 Online</div>
+    </div>
+    <button class="hbtn" onclick="openWAChat()" style="background:var(--gray);font-size:.9rem">💬 WA</button>
+  </div>
+  <div class="cr-msgs" id="crMsgs"></div>
+  <div class="cr-bar">
+    <input class="cr-in" id="crIn" placeholder="Fariin qor..." onkeydown="if(event.key==='Enter')sendMsg()">
+    <button class="cr-send" onclick="sendMsg()">➤</button>
+  </div>
+</div>
+
+<!-- ===== NOTIFICATIONS ===== -->
+<div class="screen" id="notifs">
+  <div class="screen-head">
+    <button class="back-btn" onclick="go('home')">←</button>
+    <div class="shead-title">🔔 Ogeysiisyada</div>
+    <button class="mark-all" onclick="markAll()">Dhammaan Aqri</button>
+  </div>
+  <div class="notif-items" id="notifItems"></div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div class="screen" id="dashboard">
+  <div class="dash-top">
+    <h2>📊 Dashboard-kaaga</h2>
+    <p>Xaaladda iibintaada maanta</p>
+    <div class="dash-stats">
+      <div class="dstat"><div class="dstat-n">247</div><div class="dstat-l">Aragyo</div></div>
+      <div class="dstat"><div class="dstat-n">18</div><div class="dstat-l">Iibinta</div></div>
+      <div class="dstat"><div class="dstat-n">1.2M</div><div class="dstat-l">Sh.So</div></div>
+    </div>
+  </div>
+  <div class="dbody">
+    <div class="dcard">
+      <div class="dcard-t">📦 Alaabta Aan Iibinayo</div>
+      <div id="dashList"></div>
+      <button style="width:100%;margin-top:12px;padding:12px;border-radius:12px;background:var(--orange-pale);color:var(--orange);border:none;font-weight:800;font-family:'Nunito',sans-serif;cursor:pointer" onclick="go('sell')">➕ Alaab Cusub Ku Dar</button>
+    </div>
+    <div class="dcard">
+      <div class="dcard-t">📈 Aragtida Toddobaadkii</div>
+      <div class="chart-rows" id="dashChart"></div>
+    </div>
+    <div class="dcard">
+      <div class="dcard-t">💳 Lacagta EVC/Zaad</div>
+      <div class="evc-dash">
+        <div style="font-size:.78rem;opacity:.8">Wadarta la heli karo</div>
+        <div style="font-size:1.5rem;font-weight:800;font-family:'Poppins',sans-serif;margin:6px 0">1,240,000 Sh.So</div>
+        <div class="evc-dash-btns">
+          <button class="evc-dash-btn" onclick="toast('✅ EVC Plus lacagta la diray!')">Bixi EVC</button>
+          <button class="evc-dash-btn" onclick="toast('✅ Zaad lacagta la diray!')">Bixi Zaad</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="bnav">
+    <button class="nitem" onclick="setNav(this);go('home')"><span class="nicon">🏠</span><span class="nlabel">Hoyga</span></button>
+    <button class="nitem" onclick="setNav(this);go('chatlist')"><span class="nicon">💬</span><span class="nlabel">Xariir</span></button>
+    <button class="ncenter" onclick="go('sell')">➕</button>
+    <button class="nitem" onclick="setNav(this);go('cart')"><span class="nicon">🛒</span><span class="nlabel">Basket</span></button>
+    <button class="nitem" onclick="setNav(this);go('profile')"><span class="nicon">📊</span><span class="nlabel">Dashboard</span></button>
+  </nav>
+</div>
+
+<!-- ===== DARK TOGGLE ===== -->
+<button class="dark-btn" id="darkBtn" onclick="toggleDark()">🌙</button>
+
+<!-- ===== MODALS ===== -->
+<div class="modal-ov" id="successMod">
+  <div class="msheet">
+    <div class="mhandle"></div>
+    <span class="sico" id="sIcon">✅</span>
+    <div class="stitle" id="sTitle">Guul!</div>
+    <div class="ssub" id="sSub">Si guul leh ayaa loo fulinayay</div>
+    <button class="mbtn" onclick="closeMod('successMod')">Wacan 👍</button>
+  </div>
+</div>
+
+<div class="modal-ov" id="revMod">
+  <div class="msheet">
+    <div class="mhandle"></div>
+    <div class="mtitle">⭐ Faallo Ku Dar</div>
+    <div style="display:flex;gap:8px;margin-bottom:12px" id="starSel">
+      <span style="font-size:1.6rem;cursor:pointer;opacity:.3" onclick="setStar(1,this)">★</span>
+      <span style="font-size:1.6rem;cursor:pointer;opacity:.3" onclick="setStar(2,this)">★</span>
+      <span style="font-size:1.6rem;cursor:pointer;opacity:.3" onclick="setStar(3,this)">★</span>
+      <span style="font-size:1.6rem;cursor:pointer;opacity:.3" onclick="setStar(4,this)">★</span>
+      <span style="font-size:1.6rem;cursor:pointer;opacity:1;color:var(--star)" onclick="setStar(5,this)">★</span>
+    </div>
+    <textarea class="sin sta" placeholder="Faallada ku qor..." id="revTxt" style="width:100%"></textarea>
+    <button class="mbtn" onclick="submitRev()">Faallo Dir ➜</button>
+  </div>
+</div>
+
+<div class="toast" id="toastEl"></div>
+
+<script>
+// ===== DATA =====
+const EMOS = {tignoolaji:'📱',dharka:'👗',guriga:'🛋️',cuntada:'🍽️',baabuur:'🚗',kale:'📦'};
+let user = {name:'Ahmed Shaakir', email:'ahmed@somalizon.com'};
+let cart = [], wishlist = [], myListings = 0, curProd = null;
+let obSlide = 0, banSlide = 0, payMethod = 'EVC Plus', isDark = false, curLang = 'so';
+let curChat = null, selStars = 5;
+
+let products = [
+  {id:1,name:'Samsung Galaxy S23',price:1800000,cat:'tignoolaji',seller:'Maxamed Cali',phone:'0634567890',desc:'Cusub, xaalad fiican. 128GB, 8GB RAM. Warashaddii ayaa la raacshay.',badge:'🔥',emoji:'📱',rating:4.8,revs:32,loc:'26 June'},
+  {id:2,name:'Shaati Somali Casri',price:85000,cat:'dharka',seller:'Faadumo Ibraahim',phone:'0624123456',desc:'Casri ah, qurux badan. Size la heli karo. Midab badan.',badge:'NEW',emoji:'👗',rating:4.5,revs:18,loc:"Sha'ab"},
+  {id:3,name:'Laptop HP EliteBook',price:3200000,cat:'tignoolaji',seller:'Cabdi Warsame',phone:'0635678901',desc:'8GB RAM, 256GB SSD. Core i5. Xaalad fiican, batari wanaagsan.',badge:'',emoji:'💻',rating:4.2,revs:9,loc:'Mohamoud Haybe'},
+  {id:4,name:'Sariir Qurux Badan',price:450000,cat:'guriga',seller:'Xasan Muuse',phone:'0625789012',desc:'Qurux badan, adayg badan leh. Nooca casriga ah.',badge:'',emoji:'🛋️',rating:4.0,revs:7,loc:'Jigjiga Yar'},
+  {id:5,name:'iPhone 14 Pro',price:2500000,cat:'tignoolaji',seller:'Luul Ahmed',phone:'0636890123',desc:'128GB, Buluug. Xaalad 9/10. Accessories dhamaantooda ayaa la jiraan.',badge:'🔥',emoji:'📱',rating:4.9,revs:41,loc:'26 June'},
+  {id:6,name:'Qamari Dumarka',price:120000,cat:'dharka',seller:'Faadumo Cali',phone:'0627901234',desc:'Casri ah, qurux leh. Dhar fiican.',badge:'NEW',emoji:'👘',rating:4.3,revs:14,loc:'Gacaan Libaax'},
+  {id:7,name:'Toyota Hilux 2020',price:85000000,cat:'baabuur',seller:'Maxamed Xirsi',phone:'0638012345',desc:'4x4, xaalad wanaagsan. Taayirro cusub.',badge:'',emoji:'🚗',rating:4.7,revs:5,loc:'26 June'},
+  {id:8,name:'Pasta + Hilib',price:25000,cat:'cuntada',seller:'Hooyo Kitchen',phone:'0629123456',desc:'Maalin kasta 12pm-10pm. Gaadhsiinta Hargeisa oo dhan.',badge:'NEW',emoji:'🍽️',rating:4.6,revs:28,loc:"Sha'ab"},
+];
+let filtered = [...products];
+
+let chats = [
+  {id:1,name:'Maxamed Cali',prod:'Samsung Galaxy S23',online:true,unread:2,msgs:[
+    {f:'them',t:'Salaan, taleefankii miyuu wali joogi?',time:'10:30'},
+    {f:'me',t:'Haa, wali ayuu joogaa. Xaaladda fiicantahay.',time:'10:32'},
+    {f:'them',t:'Qiimaha miyaan kala hadli karno?',time:'10:35'}
+  ]},
+  {id:2,name:'Faadumo Ibraahim',prod:'Shaati Somali Casri',online:false,unread:0,msgs:[
+    {f:'me',t:'Cabbirka Medium miyuu jiraa?',time:'Shalay'},
+    {f:'them',t:'Haa, Medium iyo Large ayaa leh.',time:'Shalay'}
+  ]},
+  {id:3,name:'Luul Ahmed',prod:'iPhone 14 Pro',online:true,unread:1,msgs:[
+    {f:'them',t:'Warashaddii miyay la jirtaa?',time:'09:15'}
+  ]}
+];
+
+let notifs = [
+  {id:1,ico:'📦',cls:'ico-o',title:'Dalabkaagu Waa La Qaatay!',msg:'iPhone 14 Pro dalabkiisii si guul leh ayaa loo diray.',time:'Daqiiqad 5',unread:true},
+  {id:2,ico:'💬',cls:'ico-b',title:'Fariin Cusub',msg:'Maxamed Cali: "Qiimaha miyaan kala hadli karno?"',time:'Daqiiqad 15',unread:true},
+  {id:3,ico:'⭐',cls:'ico-o',title:'Faallo Cusub',msg:'Samsung-kaagii 5 xiddig ayaa la siiyay!',time:'Saacad 1',unread:true},
+  {id:4,ico:'🎉',cls:'ico-g',title:'Soo Dhawow Somalizon!',msg:'Account-kaaga si guul leh ayaa loo sameeyay.',time:'Maanta',unread:false},
+  {id:5,ico:'💳',cls:'ico-g',title:'Lacag La Helay',msg:'EVC Plus: 85,000 Sh.So ayaa xisaabtaada lagu daray.',time:'Shalay',unread:false},
+];
+
+const LANGS = {
+  so:{greet:'Assalamu Calaykum 👋',search:'Raadi alaab, iibiye...',cats:['Dhammaan','Dharka','Tiknoolaji','Guriga','Cuntada','Baabuur'],nav:['Hoyga','Xariir','Basket','Profile']},
+  ar:{greet:'أهلاً وسهلاً 👋',search:'ابحث عن منتج...',cats:['الكل','الملابس','التقنية','المنزل','الطعام','السيارات'],nav:['الرئيسية','رسائل','سلة','حسابي']},
+  en:{greet:'Welcome back 👋',search:'Search products...',cats:['All','Clothes','Tech','Home','Food','Cars'],nav:['Home','Chat','Cart','Profile']}
+};
+
+// ===== NAV =====
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  const s = document.getElementById(id);
+  if(s) { s.classList.add('on'); window.scrollTo(0,0); }
+  if(id==='home') renderProds(filtered);
+  if(id==='cart') renderCart();
+  if(id==='chatlist') renderChatList();
+  if(id==='notifs') renderNotifs();
+  if(id==='dashboard') renderDash();
+}
+function setNav(el) {
+  document.querySelectorAll('.nitem').forEach(n=>n.classList.remove('on'));
+  el.classList.add('on');
+}
+
+// ===== SPLASH =====
+setTimeout(()=>go('onboard'), 2400);
+
+// ===== ONBOARDING =====
+function obNext() {
+  obSlide++;
+  if(obSlide>=3){goAuth();return;}
+  document.querySelectorAll('.ob-slide').forEach((s,i)=>s.classList.toggle('on',i===obSlide));
+  document.querySelectorAll('.ob-dot').forEach((d,i)=>d.classList.toggle('on',i===obSlide));
+  if(obSlide===2) document.getElementById('obnext').textContent='Bilow →';
+}
+function goAuth(){go('auth');}
+
+// ===== AUTH =====
+function swAuth(tab,el) {
+  document.querySelectorAll('.atab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('loginForm').style.display=tab==='login'?'block':'none';
+  document.getElementById('regForm').style.display=tab==='reg'?'block':'none';
+}
+function doLogin() {
+  const email=document.getElementById('loginEmail').value||'ahmed@somalizon.com';
+  user.name=email.includes('ahmed')?'Ahmed Shaakir':email.split('@')[0];
+  user.email=email;
+  updateUserUI();
+  renderProds(filtered);
+  go('home');
+}
+function doRegister() {
+  user.name=document.getElementById('regName').value||'Isticmaale Cusub';
+  user.email=document.getElementById('regEmail').value||'user@somalizon.com';
+  updateUserUI();
+  renderProds(filtered);
+  go('home');
+  showSuccess('🎉','Soo Dhawoow!','Account-kaaga si guul leh ayaa loo sameeyay!');
+}
+function doLogout(){go('auth');}
+function updateUserUI() {
+  document.getElementById('homeUser').textContent=user.name;
+  document.getElementById('profName').textContent=user.name;
+  document.getElementById('profEmail').textContent=user.email;
+  document.getElementById('profAv').textContent=user.name[0];
+}
+
+// ===== BANNER AUTO =====
+function startBanner() {
+  setInterval(()=>{
+    banSlide=(banSlide+1)%3;
+    const el=document.getElementById('bannersInner');
+    if(el) el.style.transform=`translateX(-${banSlide*100}%)`;
+    document.querySelectorAll('.bdot').forEach((d,i)=>d.classList.toggle('on',i===banSlide));
+  },3500);
+}
+startBanner();
+
+// ===== PRODUCTS =====
+function renderProds(list) {
+  const g=document.getElementById('pgrid');
+  if(!list||!list.length){
+    g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text2)">Alaab lama helin 😕</div>';
+    return;
+  }
+  g.innerHTML=list.map((p,i)=>`
+    <div class="pcard" style="animation-delay:${i*.05}s" onclick="openProd(${p.id})">
+      <div class="pimg">${p.emoji}
+        ${p.badge?`<div class="pbadge ${p.badge==='🔥'?'pb-hot':'pb-new'}">${p.badge}</div>`:''}
+        <button class="pwish" onclick="event.stopPropagation();twish(${p.id},this)">${wishlist.includes(p.id)?'❤️':'🤍'}</button>
+      </div>
+      <div class="pinfo">
+        <div class="pname">${p.name}</div>
+        <div class="pseller">👤 ${p.seller}</div>
+        <div class="pstars">${'⭐'.repeat(Math.round(p.rating))}<span>${p.rating} (${p.revs})</span></div>
+        <div class="pbot">
+          <div class="pprice"><small>Sh.So </small>${p.price.toLocaleString()}</div>
+          <button class="padd" onclick="event.stopPropagation();addCart(${p.id})">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+function filterCat(cat,el) {
+  document.querySelectorAll('.cat').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  filtered=cat==='all'?[...products]:products.filter(p=>p.cat===cat);
+  renderProds(filtered);
+}
+function doSearch(q) {
+  const t=q.toLowerCase();
+  filtered=t?products.filter(p=>p.name.toLowerCase().includes(t)||p.seller.toLowerCase().includes(t)):[...products];
+  renderProds(filtered);
+}
+
+// ===== PRODUCT DETAIL =====
+function openProd(id) {
+  curProd=products.find(p=>p.id===id);
+  if(!curProd)return;
+  document.getElementById('dimg').textContent=curProd.emoji;
+  document.getElementById('dname').textContent=curProd.name;
+  document.getElementById('dprice').textContent='Sh.So '+curProd.price.toLocaleString();
+  document.getElementById('dstars').textContent='⭐'.repeat(Math.round(curProd.rating));
+  document.getElementById('drc').textContent=`${curProd.rating} (${curProd.revs})`;
+  document.getElementById('dsav').textContent=curProd.seller[0];
+  document.getElementById('dsname').textContent=curProd.seller;
+  document.getElementById('dsloc').textContent='📍 '+curProd.loc;
+  document.getElementById('ddesc').textContent=curProd.desc;
+  const iw=wishlist.includes(curProd.id);
+  document.getElementById('wishBtn').textContent=iw?'❤️':'🤍';
+  document.getElementById('wishBtn2').textContent=iw?'❤️':'🤍';
+  go('detail');
+}
+function openWA() {
+  if(!curProd)return;
+  const msg=encodeURIComponent(`Salaam! Somalizon ayaan ka arkay "${curProd.name}" (Sh.So ${curProd.price.toLocaleString()}). Ma waxay jirtaa?`);
+  window.open(`https://wa.me/${curProd.phone.replace(/^0/,'252')}?text=${msg}`,'_blank');
+}
+function addCurToCart(){if(curProd)addCart(curProd.id);}
+function toggleWish() {
+  if(!curProd)return;
+  twish(curProd.id,null);
+  const iw=wishlist.includes(curProd.id);
+  document.getElementById('wishBtn').textContent=iw?'❤️':'🤍';
+  document.getElementById('wishBtn2').textContent=iw?'❤️':'🤍';
+}
+function twish(id,btn) {
+  const i=wishlist.indexOf(id);
+  if(i>=0){wishlist.splice(i,1);if(btn)btn.textContent='🤍';toast('Jecelka ka saaray');}
+  else{wishlist.push(id);if(btn)btn.textContent='❤️';toast('❤️ Jecelka lagu daray!');}
+  document.getElementById('pWish').textContent=wishlist.length;
+}
+
+// ===== CART =====
+function addCart(id) {
+  const p=products.find(x=>x.id===id);
+  const ex=cart.find(x=>x.id===id);
+  if(ex)ex.qty++;else cart.push({...p,qty:1});
+  updateCartBadge();
+  toast('✅ Basket lagu daray!');
+}
+function updateCartBadge(){
+  const t=cart.reduce((s,x)=>s+x.qty,0);
+  document.getElementById('cbadge').textContent=t;
+}
+function renderCart(){
+  const l=document.getElementById('cartList');
+  const s=document.getElementById('csummary');
+  if(!cart.length){
+    l.innerHTML='<div style="text-align:center;padding:60px;color:var(--text2)"><div style="font-size:4rem">🛒</div><div style="margin-top:10px;font-weight:700">Basket waa madhan yahay</div></div>';
+    s.style.display='none';return;
+  }
+  s.style.display='block';
+  l.innerHTML=cart.map(x=>`
+    <div class="citem">
+      <div class="cimg">${x.emoji}</div>
+      <div class="cinfo">
+        <div class="cname">${x.name}</div>
+        <div class="cprice">Sh.So ${(x.price*x.qty).toLocaleString()}</div>
+        <div class="cqty">
+          <button class="qbtn" onclick="chQty(${x.id},-1)">−</button>
+          <span class="qnum">${x.qty}</span>
+          <button class="qbtn" onclick="chQty(${x.id},1)">+</button>
+        </div>
+      </div>
+      <button class="cdel" onclick="delCart(${x.id})">🗑️</button>
+    </div>
+  `).join('');
+  const tot=cart.reduce((s,x)=>s+x.price*x.qty,0);
+  document.getElementById('sItems').textContent=cart.reduce((s,x)=>s+x.qty,0)+' Xaashi';
+  document.getElementById('sTotal').textContent='Sh.So '+tot.toLocaleString();
+}
+function chQty(id,d){const i=cart.find(x=>x.id===id);if(!i)return;i.qty+=d;if(i.qty<=0)cart=cart.filter(x=>x.id!==id);updateCartBadge();renderCart();}
+function delCart(id){cart=cart.filter(x=>x.id!==id);updateCartBadge();renderCart();}
+function selPay(el){document.querySelectorAll('.eopt').forEach(e=>e.classList.remove('on'));el.classList.add('on');payMethod=el.textContent;}
+function doCheckout(){cart=[];updateCartBadge();renderCart();showSuccess('🎉','Dalabka La Qaatay!',`Lacagta ${payMethod} ayaa lagu bixin doonaa. Iibiyaha ayaa kula xiriiri doona!`);}
+
+// ===== SELL =====
+function handleImg(inp){
+  const pv=document.getElementById('iprevs');pv.innerHTML='';
+  Array.from(inp.files).slice(0,5).forEach(f=>{
+    const r=new FileReader();
+    r.onload=e=>{const img=document.createElement('img');img.src=e.target.result;img.className='iprev';pv.appendChild(img);};
+    r.readAsDataURL(f);
+  });
+}
+function submitProd(){
+  const name=document.getElementById('sName').value.trim();
+  const price=parseInt(document.getElementById('sPrice').value);
+  const cat=document.getElementById('sCat').value;
+  const phone=document.getElementById('sPhone').value.trim();
+  if(!name||!price||!cat||!phone){toast('⚠️ Goobaha oo dhan buuxi!');return;}
+  products.unshift({id:Date.now(),name,price,cat,phone,seller:user.name,desc:document.getElementById('sDesc').value||'',badge:'NEW',emoji:EMOS[cat]||'📦',rating:0,revs:0,loc:document.getElementById('sLoc').value||'Hargeisa'});
+  filtered=[...products];
+  myListings++;
+  document.getElementById('pSell').textContent=myListings;
+  ['sName','sPrice','sDesc','sPhone','sEVC'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('iprevs').innerHTML='';
+  showSuccess('🛍️','Alaabta La Daray!',`"${name}" si guul leh ayaa Somalizon loogu daray!`);
+}
+
+// ===== REVIEWS =====
+function openRevModal(){document.getElementById('revMod').classList.add('on');}
+function setStar(n){selStars=n;document.querySelectorAll('#starSel span').forEach((s,i)=>{s.style.opacity=i<n?'1':'.3';s.style.color=i<n?'var(--star)':'inherit';});}
+function submitRev(){
+  const txt=document.getElementById('revTxt').value.trim();
+  if(!txt){toast('Faallada qor!');return;}
+  const c=document.createElement('div');c.className='rcard';
+  c.innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div class="rname">${user.name}</div><div style="font-size:.72rem;color:var(--star)">${'⭐'.repeat(selStars)}</div></div><div class="rtext">${txt}</div>`;
+  document.getElementById('revList').prepend(c);
+  document.getElementById('revTxt').value='';
+  closeMod('revMod');toast('✅ Faalladaada la daray!');
+}
+
+// ===== CHAT =====
+function renderChatList(){
+  document.getElementById('chatItems').innerHTML=chats.map(c=>`
+    <div class="chitem" onclick="openChat(${c.id})">
+      <div class="chav">${c.name[0]}${c.online?'<div class="ch-online"></div>':''}</div>
+      <div class="chinfo">
+        <div class="chname">${c.name}</div>
+        <div class="chmsg">📦 ${c.prod}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
+        <div class="chtime">${c.msgs.length?c.msgs[c.msgs.length-1].time:''}</div>
+        ${c.unread?`<div class="chunread">${c.unread}</div>`:''}
+      </div>
+    </div>
+  `).join('');
+}
+function openChat(id){
+  curChat=chats.find(c=>c.id===id);
+  if(!curChat)return;
+  curChat.unread=0;
+  document.getElementById('crAv').textContent=curChat.name[0];
+  document.getElementById('crName').textContent=curChat.name;
+  document.getElementById('crStatus').textContent=curChat.online?'🟢 Online':'⚫ Offline';
+  renderMsgs();
+  go('chatroom');
+}
+function renderMsgs(){
+  const c=document.getElementById('crMsgs');
+  c.innerHTML='<div class="datesep">Maanta</div>'+
+    curChat.msgs.map(m=>`
+      <div style="display:flex;flex-direction:column;align-items:${m.f==='me'?'flex-end':'flex-start'}">
+        <div class="bubble ${m.f==='me'?'bme':'bthem'}">${m.t}<div class="btime">${m.time}</div></div>
+      </div>
+    `).join('');
+  c.scrollTop=c.scrollHeight;
+}
+function sendMsg(){
+  const inp=document.getElementById('crIn');
+  const txt=inp.value.trim();
+  if(!txt||!curChat)return;
+  const now=new Date();
+  const time=now.getHours()+':'+(now.getMinutes()<10?'0':'')+now.getMinutes();
+  curChat.msgs.push({f:'me',t:txt,time});
+  inp.value='';renderMsgs();
+  setTimeout(()=>{
+    const reps=['Haa, waa sax!','Wacan, hada ayaan kuu xaqiijinayaa.','Ok, mahadsanid!','Aad baad u mahadsantahay!'];
+    curChat.msgs.push({f:'them',t:reps[Math.floor(Math.random()*reps.length)],time});
+    renderMsgs();
+  },1500);
+}
+function openWAChat(){
+  if(!curChat)return;
+  const p=products.find(x=>x.seller===curChat.name);
+  const phone=p?p.phone.replace(/^0/,'252'):'252600000000';
+  window.open(`https://wa.me/${phone}`,'_blank');
+}
+
+// ===== NOTIFICATIONS =====
+function renderNotifs(){
+  document.getElementById('notifItems').innerHTML=notifs.map(n=>`
+    <div class="nitem ${n.unread?'unread':''}" onclick="readNotif(${n.id})">
+      <div class="nico ${n.cls}">${n.ico}</div>
+      <div class="ncontent">
+        <div class="ntitle">${n.title}</div>
+        <div class="nmsg">${n.msg}</div>
+        <div class="ntime">${n.time}</div>
+      </div>
+      ${n.unread?'<div class="ndot"></div>':''}
+    </div>
+  `).join('');
+}
+function readNotif(id){const n=notifs.find(x=>x.id===id);if(n){n.unread=false;}updateNBadge();renderNotifs();}
+function markAll(){notifs.forEach(n=>n.unread=false);updateNBadge();renderNotifs();toast('✅ Dhammaan la aqriyay');}
+function updateNBadge(){const c=notifs.filter(n=>n.unread).length;document.getElementById('nbadge').textContent=c||'0';}
+
+// ===== DASHBOARD =====
+function renderDash(){
+  const dl=document.getElementById('dashList');
+  if(dl) dl.innerHTML=products.slice(0,3).map(p=>`
+    <div class="dlisting">
+      <div class="dlem">${p.emoji}</div>
+      <div class="dlinfo">
+        <div class="dlname">${p.name}</div>
+        <div class="dlprice">Sh.So ${p.price.toLocaleString()}</div>
+        <div class="dlviews">👁 ${Math.floor(Math.random()*80+10)} aragyo</div>
+      </div>
+      <span class="dstatus ds-active">Furan</span>
+    </div>
+  `).join('');
+  const dc=document.getElementById('dashChart');
+  const days=['Isn','Tir','Arb','Kha','Jim','Sab','Axd'];
+  const vals=[45,120,80,200,150,310,180];
+  const mx=Math.max(...vals);
+  if(dc) dc.innerHTML=days.map((d,i)=>`
+    <div class="crow">
+      <span class="clabel">${d}</span>
+      <div class="cbar"><div class="cbar-fill" style="width:${(vals[i]/mx*100).toFixed(0)}%"></div></div>
+      <span class="cval">${vals[i]}K</span>
+    </div>
+  `).join('');
+}
+
+// ===== LANGUAGE =====
+function setLang(lang,el){
+  curLang=lang;
+  document.querySelectorAll('.lbtn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  const L=LANGS[lang];
+  document.getElementById('greetTxt').textContent=L.greet;
+  document.getElementById('searchIn').placeholder=L.search;
+  ['c0','c1','c2','c3','c4','c5'].forEach((id,i)=>{const e=document.getElementById(id);if(e)e.textContent=L.cats[i];});
+  ['nl0','nl1','nl2','nl3'].forEach((id,i)=>{const e=document.getElementById(id);if(e)e.textContent=L.nav[i];});
+  document.body.style.direction=lang==='ar'?'rtl':'ltr';
+  toast(lang==='so'?'🇸🇴 Af-Somali':lang==='ar'?'🇸🇦 اللغة العربية':'🇬🇧 English Selected');
+}
+
+// ===== DARK MODE =====
+function toggleDark(){
+  isDark=!isDark;
+  document.body.classList.toggle('dark',isDark);
+  document.getElementById('darkBtn').textContent=isDark?'☀️':'🌙';
+}
+
+// ===== MODALS & UTILS =====
+function showSuccess(ico,title,sub){
+  document.getElementById('sIcon').textContent=ico;
+  document.getElementById('sTitle').textContent=title;
+  document.getElementById('sSub').textContent=sub;
+  document.getElementById('successMod').classList.add('on');
+}
+function closeMod(id){document.getElementById(id).classList.remove('on');}
+function toast(msg){
+  const t=document.getElementById('toastEl');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2400);
+}
+document.querySelectorAll('.modal-ov').forEach(o=>{
+  o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('on');});
+});
+function selArea(el){document.querySelectorAll('.acard').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
+
+// Init
+updateNBadge();
+renderProds(products);
+let selectedPayment = 'evc'; // Midka hadda dooran
+
+function selPay(el, type) {
+    // 1. Ka saar class-ka 'on' badhamada oo dhan
+    document.querySelectorAll('.pay-opt').forEach(opt => {
+        opt.classList.remove('on');
+    });
+    
+    // 2. U yeel class-ka 'on' kan aad taabatay
+    el.classList.add('on');
+    
+    // 3. Kaydi nooca lacag bixinta ee la doortay
+    selectedPayment = type;
+    console.log("Waxaad dooratay: " + type);
+}
+
+function doCheckout() {
+    // Tani waxay soo bandhigaysaa fariin xaqiijin ah
+    toast('✅ Dalabkaaga waa la dirayaa. Lacag bixinta: ' + selectedPayment.toUpperCase());
+}
+</script>
+</div>
+</body>
+</html>
+ 
