@@ -1159,14 +1159,28 @@ function validateAndLogin() {
   updateUserUI();
   renderProds(filtered);
   go('home');
-}
 function doRegister() {
-  user.name=document.getElementById('regName').value||'Isticmaale Cusub';
-  user.email=document.getElementById('regEmail').value||'user@somalizon.com';
-  updateUserUI();
-  renderProds(filtered);
-  go('home');
-  showSuccess('🎉','Soo Dhawoow!','Account-kaaga si guul leh ayaa loo sameeyay!');
+  const name = document.getElementById('regName').value;
+  const email = document.getElementById('regEmail').value;
+  const password = document.getElementById('regPass').value;
+  
+  if(!name || !email || !password) {
+    alert('Fadlan buuxi dhammaan meelaha!');
+    return;
+  }
+  
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((result) => {
+      user.name = name;
+      user.email = email;
+      updateUserUI();
+      renderProds(filtered);
+      go('home');
+      showSuccess('🎉','Soo Dhawoow!','Account-kaaga si guul leh ayaa loo sameeyay!');
+    })
+    .catch((error) => {
+      alert('Khalad: ' + error.message);
+    });
 }
 function doLogout(){go('auth');}
 function updateUserUI() {
