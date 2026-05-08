@@ -1523,22 +1523,16 @@ function doCheckout() {
   toast('dalabka kaaga wala dirayaa');
   ('lacag bixinta: ' + selectedPayment.toUpperCase());
 } // Tani waxay xiraysaa function doCheckout
+setTimeout(function() {
+  var splash = document.getElementById('splash');
+  if (splash) {
+    splash.style.display = 'none';
+  }
+  go('auth');
+}, 3000);
 
 // Koodhka Splash Screen-ka u gudbinaya Login-ka
-setTimeout(function() {
-    let splash = document.querySelector('#splash'); 
-    // Haddii class-kaaga splash-ku magacaas leeyahay
-    if (splash) {
-        splash.style.display = 'none';
-        console.log("Splash waa laga gudbay");go('auth'); //
 
-
-    } else {
-        // Haddii uu yahay ID, isticmaal kan:
-        document.getElementById('splash').style.display = 'none';go('auth'); //
-
-    
-}, 3000);
 // 1. Hubinta Foomka (Si aanu qofku iska gudbin)
 function validateAndLogin() {
     const email = document.getElementById('loginEmail').value;
