@@ -517,10 +517,57 @@ body.dark .stitle{color:var(--text)}
     cursor: pointer !important;
 }
 </style>
-</head>
-<body>
-<div class="wrap">
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script>
+  // 1. Xogta Firebase-kaaga cusub (Config)
+  const firebaseConfig = {
+    apiKey: "AIzaSyCQF0lPMZtccC2kKtfI-fP0dADas7BtfxY",
+    authDomain: "somalizonapp-e8d85.firebaseapp.com",
+    projectId: "somalizonapp-e8d85",
+    storageBucket: "somalizonapp-e8d85.firebasestorage.app",
+    messagingSenderId: "771871735816",
+    appId: "1:771871735816:web:b73c9708187d37de5491bd",
+    measurementId: "G-V1C93PKJ6K"
+  };
 
+  // 2. Bilaabidda Firebase
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+
+  // 3. Shaqada badhanka Google (googleSignIn)
+  function googleSignIn() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+      .then((result) => {
+        alert("Ku soo dhawaaw Somalizon, " + result.user.displayName);
+        // Haddii aad rabto inuu toos u galo: go('home');
+      })
+      .catch((error) => {
+        alert("Cillad: " + error.message);
+      });
+  }
+
+  // 4. Shaqada badhanka Login-ka caadiga ah (validateAndLogin)
+  function validateAndLogin() {
+    const email = document.getElementById('loginEmail').value;
+    const pass = document.getElementById('loginPass').value;
+
+    if (!email || !pass) {
+      alert("Fadlan buuxi Email-ka iyo Password-ka");
+      return;
+    }
+
+    firebase.auth().signInWithEmailAndPassword(email, pass)
+      .then((user) => {
+        alert("Si guul leh ayaad u gashay!");
+      })
+      .catch((error) => {
+        alert("Cillad: " + error.message);
+      });
+  }
+</script>
 <!-- ===== SPLASH ===== -->
 <div class="screen on" id="splash">
   <span class="splash-bag">🛍️</span>
@@ -528,7 +575,6 @@ body.dark .stitle{color:var(--text)}
   <div class="splash-tag">Hal Meel Ka Iibso Ku Iibso</div>
   <div class="splash-bar"><div class="splash-fill"></div></div>
 </div>
-
 <!-- ===== ONBOARDING ===== -->
 <div class="screen" id="onboard">
   <div class="ob-wrap">
@@ -559,9 +605,11 @@ body.dark .stitle{color:var(--text)}
     <input class="finput" type="email" placeholder="adiga@email.com" id="loginEmail">
     <label class="flabel">Furaha Sirta</label>
     <input class="finput" type="password" placeholder="••••••••" id="loginPass">
-    <button class="btn-main" onclick="doLogin()">▶ Gal Somalizon</button>
+    <button class="btn-main" onclick="validateAndLogin()">▶️ Gal Somalizon</button>
+
     <div class="divider"><div class="divider-line"></div><div class="divider-txt">ama</div><div class="divider-line"></div></div>
-    <button class="btn-social" onclick="doLogin()">🌐 Google Account ku Gal</button>
+   <button class="btn-social" onclick="googleSignIn()">🌐 Google Account ku Gal</button>
+
     <div class="evc-note">💳 EVC Plus & Zaad — La Qaataa!</div>
   </div>
   <div class="auth-form" id="regForm" style="display:none">
@@ -708,7 +756,7 @@ body.dark .stitle{color:var(--text)}
     </div>
     <div class="fcard">
       <div class="fcard-title">💰 Qiimaha & Xiriirka</div>
-      <label class="flabel">Qiimaha (Sh.So) *</label>
+      <label class="flabel">Qiimaha ($) *</label>
       <input class="sin" type="number" placeholder="Tusaale: 500000" id="sPrice">
       <label class="flabel">Telefoonka *</label>
       <input class="sin" type="tel" placeholder="063XXXXXXX" id="sPhone">
@@ -953,7 +1001,7 @@ body.dark .stitle{color:var(--text)}
     <div class="dash-stats">
       <div class="dstat"><div class="dstat-n">247</div><div class="dstat-l">Aragyo</div></div>
       <div class="dstat"><div class="dstat-n">18</div><div class="dstat-l">Iibinta</div></div>
-      <div class="dstat"><div class="dstat-n">1.2M</div><div class="dstat-l">Sh.So</div></div>
+      <div class="dstat"><div class="dstat-n">1.2M</div><div class="dstat-l">$</div></div>
     </div>
   </div>
   <div class="dbody">
@@ -1104,7 +1152,7 @@ function swAuth(tab,el) {
   document.getElementById('loginForm').style.display=tab==='login'?'block':'none';
   document.getElementById('regForm').style.display=tab==='reg'?'block':'none';
 }
-function doLogin() {
+function validateAndLogin() {
   const email=document.getElementById('loginEmail').value||'ahmed@somalizon.com';
   user.name=email.includes('ahmed')?'Ahmed Shaakir':email.split('@')[0];
   user.email=email;
@@ -1456,11 +1504,63 @@ function selPay(el, type) {
 }
 
 function doCheckout() {
-    // Tani waxay soo bandhigaysaa fariin xaqiijin ah
-    toast('✅ Dalabkaaga waa la dirayaa. Lacag bixinta: ' + selectedPayment.toUpperCase());
+  // tani waxay soo bandhigaysaa fariin xaqiijin ah
+  toast('dalabka kaaga wala dirayaa');
+  ('lacag bixinta: ' + selectedPayment.toUpperCase());
+} // Tani waxay xiraysaa function doCheckout
+
+// Koodhka Splash Screen-ka u gudbinaya Login-ka
+setTimeout(function() {
+    let splash = document.querySelector('.splash-screen'); 
+    // Haddii class-kaaga splash-ku magacaas leeyahay
+    if (splash) {
+        splash.style.display = 'none';
+        console.log("Splash waa laga gudbay");
+    } else {
+        // Haddii uu yahay ID, isticmaal kan:
+        document.getElementById('splash').style.display = 'none';
+    }
+}, 3000);
+// 1. Hubinta Foomka (Si aanu qofku iska gudbin)
+function validateAndLogin() {
+    const email = document.getElementById('loginEmail').value;
+    const pass = document.getElementById('loginPass').value;
+
+    if (email.trim() === "" || pass.trim() === "") {
+        alert("Fadlan buuxi meelaha bannaan!");
+        return;
+    }
+
+    if (!email.includes("@")) {
+        alert("Email-ku ma saxna!");
+        return;
+    }
+
+    // 2. Halkan waxaan ku xidhaynaa Firebase si loo hubiyo haddii qofku diiwaan gashan yahay
+    firebase.auth().signInWithEmailAndPassword(email, pass)
+      .then((userCredential) => {
+        // Haddii uu sax yahay, waa loo ogolaanayaa
+        alert("Si guul leh ayaad u gashay!");
+        window.location.href = "home.html"; 
+      })
+      .catch((error) => {
+        // Haddii uu khaldan yahay (Halkan ayay dhibaatadaadu ku xalismaysaa)
+        alert("Email-ka ama Password-ka waa khaldan yihiin. Fadlan iska hubi!");
+      });
 }
+
+// 2. Shaqada Google Login
+function googleSignIn() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then((result) => {
+        alert("Waxaad ku gashay Google: " + result.user.displayName);
+        window.location.href = "home.html";
+    }).catch((error) => {
+        alert("Cillad Google: " + error.message);
+    });
+}
+
 </script>
 </div>
 </body>
 </html>
- 
