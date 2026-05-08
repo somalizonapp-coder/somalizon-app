@@ -1528,8 +1528,8 @@ setTimeout(function() {
   if (splash) {
     splash.style.display = 'none';
   }
-  go('auth');
-}, 3000);
+  setTimeout(()=>go('auth'), 3000);
+
 
 // Koodhka Splash Screen-ka u gudbinaya Login-ka
 
